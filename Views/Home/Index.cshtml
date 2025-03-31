@@ -1,0 +1,111 @@
+﻿@page
+@{
+    Layout = "_Layout";
+}
+
+<!-- Featured Banner -->
+<div class="featured-banner mb-5 p-4 rounded" style="background: linear-gradient(to right, #1DB954, #191414);">
+    <div class="row align-items-center">
+        <div class="col-md-4">
+            <img src="https://via.placeholder.com/300" class="img-fluid rounded shadow" alt="Featured Album">
+        </div>
+        <div class="col-md-8 text-white">
+            <small class="text-uppercase">Featured Playlist</small>
+            <h1 class="display-4 fw-bold">Today's Top Hits</h1>
+            <p class="lead">The most popular songs right now. Updated daily.</p>
+            <button class="btn btn-dark btn-lg mt-3">
+                <i class="fas fa-play me-2"></i> Play Now
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Trending Now Section -->
+<div class="mb-5">
+    <h2 class="mb-4">Trending Now <small class="text-muted">· Updated today</small></h2>
+    <div class="row">
+        @for (int i = 0; i < 6; i++)
+        {
+            <div class="col-md-2 col-6 mb-4">
+                <div class="music-card p-3 text-center h-100">
+                    <img src="https://via.placeholder.com/150" class="img-fluid rounded mb-3" alt="Song Cover">
+                    <h6 class="mb-1">Song Title @(i + 1)</h6>
+                    <small class="text-secondary">Artist Name</small>
+                    <button class="btn btn-sm btn-success mt-2 w-100 play-btn" data-song="Song @(i + 1)" data-artist="Artist">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Recommended Playlists -->
+<div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Made For You</h2>
+        <a href="#" class="text-decoration-none">See all</a>
+    </div>
+    <div class="row">
+        @for (int i = 0; i < 4; i++)
+        {
+            <div class="col-md-3 col-6 mb-4">
+                <div class="music-card p-3 text-center h-100">
+                    <img src="https://via.placeholder.com/150" class="img-fluid rounded mb-3" alt="Playlist Cover">
+                    <h6 class="mb-1">Personalized Playlist @(i + 1)</h6>
+                    <small class="text-secondary">Curated just for you</small>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Popular Artists -->
+<div class="mb-5">
+    <h2 class="mb-4">Popular Artists</h2>
+    <div class="row">
+        @for (int i = 0; i < 5; i++)
+        {
+            <div class="col-md-2 col-4 mb-4">
+                <div class="text-center">
+                    <img src="https://via.placeholder.com/150" class="img-fluid rounded-circle mb-3" alt="Artist" style="width: 100px; height: 100px; object-fit: cover;">
+                    <h6 class="mb-0">Artist @(i + 1)</h6>
+                    <small class="text-secondary">Singer</small>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Play button functionality
+        document.querySelectorAll('.play-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const song = this.getAttribute('data-song');
+                const artist = this.getAttribute('data-artist');
+
+                document.getElementById('nowPlayingTitle').textContent = song;
+                document.getElementById('nowPlayingArtist').textContent = artist;
+
+                const playBtn = document.getElementById('playBtn');
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+
+                // Simulate progress bar
+                let progress = 0;
+                const progressBar = document.getElementById('progressBar');
+                progressBar.style.width = '0%';
+
+                const interval = setInterval(() => {
+                    progress += 1;
+                    progressBar.style.width = `${progress}%`;
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    }
+                }, 100);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,98 @@
+﻿:root {
+    --primary: #1DB954; /* Spotify green */
+    --dark-bg: #121212;
+    --sidebar-bg: #000000;
+    --card-bg: #181818;
+    --text-primary: #ffffff;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    padding: 20px;
+    position: fixed;
+}
+
+.sidebar-logo {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: var(--primary);
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 10px 0;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+    .sidebar-nav a:hover {
+        color: var(--primary);
+    }
+
+.main-content {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.music-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 16px;
+    transition: transform 0.2s;
+}
+
+    .music-card:hover {
+        transform: scale(1.03);
+        background-color: #282828;
+    }
+
+.player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: var(--card-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .music-grid {
+        grid-template-columns: 1fr;
+    }
+}

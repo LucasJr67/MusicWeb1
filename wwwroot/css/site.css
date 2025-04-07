@@ -110,6 +110,25 @@ body {
     transform: translateX(5px);
 }
 
+.sidebar .nav-item.mt-4:last-child {
+    position: relative;
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 2rem !important;
+}
+
+.sidebar .nav-item.mt-4:last-child .nav-link {
+    background-color: var(--dark-bg-tertiary);
+    border: 1px solid var(--primary);
+    margin-bottom: 1rem;
+}
+
+.sidebar .nav-item.mt-4:last-child .nav-link:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateX(5px);
+}
+
 /* Main Content */
 .main-content {
     margin-left: 250px;

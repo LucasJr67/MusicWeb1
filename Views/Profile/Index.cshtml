@@ -1,0 +1,150 @@
+@model MusicWeb1.Controllers.UserProfile
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="Avatar">
+                    <h4 class="card-title">@Model.Username</h4>
+                    <p class="text-muted">@User.Identity?.Name</p>
+                    <a href="/Profile/Edit" class="btn btn-outline-primary">Edit Profile</a>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Analyze</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Liked Songs</span>
+                        <span class="badge bg-primary rounded-pill">@Model.FavoriteSongsCount</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Playlist</span>
+                        <span class="badge bg-primary rounded-pill">@Model.PlaylistsCount</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Following</span>
+                        <span class="badge bg-primary rounded-pill">@Model.FollowingCount</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Info</h5>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.Email
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Phone Number</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.PhoneNumber
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Address</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @Model.Address
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">My Playlists</h5>
+                    <div class="row">
+                        @foreach (var playlist in Model.Playlists)
+                        {
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center p-2 border rounded">
+                                    <img src="@playlist.CoverImage" class="rounded me-3" alt="Playlist Cover">
+                                    <div>
+                                        <h6 class="mb-0">@playlist.Name</h6>
+                                        <small class="text-muted">@playlist.SongCount Songs</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Recently</h5>
+                    <div class="list-group list-group-flush">
+                        @foreach (var activity in Model.RecentActivities)
+                        {
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">@activity.Title</h6>
+                                    <small class="text-muted">@activity.TimeAgo</small>
+                                </div>
+                                <p class="mb-1">@activity.Description</p>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            border-radius: 0.5rem;
+            background-color: #1C1D3A;
+            color: #ffffff;
+        }
+        .rounded-circle {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 3px solid #6C63FF;
+        }
+        .list-group-item {
+            background-color: transparent;
+            border: none;
+            padding: 1rem 0;
+            color: #A0A0C0;
+        }
+        .list-group-item:hover {
+            background-color: #131428;
+        }
+        .badge {
+            font-size: 0.9em;
+            padding: 0.5em 1em;
+            background-color: #6C63FF;
+            color: #ffffff;
+        }
+        .btn-outline-primary {
+            color: #6C63FF;
+            border-color: #6C63FF;
+        }
+        .btn-outline-primary:hover {
+            background-color: #6C63FF;
+            color: #ffffff;
+        }
+    </style>
+} 
+} 

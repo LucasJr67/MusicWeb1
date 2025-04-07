@@ -40,7 +40,7 @@
                 </li>
                 <li class="nav-item mt-4">
                     <h6 class="text-uppercase text-secondary px-3">Playlists</h6>
-                    <a class="nav-link" href="/playlists">
+                    <a class="nav-link" asp-controller="Playlist" asp-action="Index">
                         <i class="fas fa-list me-2"></i>My Playlists
                     </a>
                 </li>
@@ -76,7 +76,7 @@
                             <a class="nav-link" href="/library">Library</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/playlists">Playlists</a>
+                            <a class="nav-link" asp-controller="Playlist" asp-action="Index">Playlists</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Profile" asp-action="Index">

@@ -1,0 +1,112 @@
+﻿namespace MusicWeb1.Views.Playlist
+{
+    public class Create
+    {
+    }
+}
+
+@model MusicWeb1.Models.Playlist
+
+@{
+    ViewData["Title"] = "Edit Playlist";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Edit Playlist</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <input type="hidden" asp-for="PlaylistId" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <img src="@(string.IsNullOrEmpty(Model.CoverImage) ? "/images/default-playlist.jpg" : Model.CoverImage)" 
+                                     class="img-fluid rounded" alt="@Model.Name">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Name" class="form-label">Playlist Name</label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label asp-for="Description" class="form-label">Description</label>
+                                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Visibility" class="form-label">Visibility</label>
+                                    <select asp-for="Visibility" class="form-select">
+                                        <option value="Public">Public</option>
+                                        <option value="Private">Private</option>
+                                    </select>
+                                    <span asp-validation-for="Visibility" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="CoverImage" class="form-label">Cover Image URL</label>
+                                    <input asp-for="CoverImage" class="form-control" />
+                                    <span asp-validation-for="CoverImage" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to List
+                            </a>
+                            <div>
+                                <a asp-action="Delete" asp-route-id="@Model.PlaylistId" 
+                                   class="btn btn-danger me-2">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 15px;
+        }
+        .card-header {
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 15px !important;
+        }
+        .form-control, .form-select {
+            border-radius: 8px;
+        }
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .img-fluid {
+            max-height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+}

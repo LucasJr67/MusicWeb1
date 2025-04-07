@@ -8,57 +8,96 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Edit Profile</h4>
+                </div>
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Edit Profile</h4>
                     <form asp-action="Edit" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
 
-                        <div class="mb-3">
-                            <label asp-for="FullName" class="form-label"></label>
-                            <input asp-for="FullName" class="form-control" />
-                            <span asp-validation-for="FullName" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="AvatarUrl" class="form-label"></label>
-                            <input type="file" name="avatar" class="form-control" accept="image/*" />
+                        <div class="profile-image-section text-center mb-4">
+                            <div class="current-image mb-3">
+                                @if (Model != null && !string.IsNullOrEmpty(Model.AvatarUrl))
+                                {
+                                    <img src="@Model.AvatarUrl" alt="Current Profile Image" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <img src="/images/default-avatar.png.jpg" alt="Default Profile Image" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" />
+                                }
+                            </div>
+                            <div class="custom-file-upload">
+                                <label for="avatar" class="btn btn-outline-primary">
+                                    <i class="fas fa-camera me-2"></i>Change Profile Photo
+                                </label>
+                                <input type="file" name="avatar" id="avatar" class="d-none" accept="image/*" />
+                            </div>
                             <span asp-validation-for="AvatarUrl" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="DateOfBirth" class="form-label"></label>
-                            <input asp-for="DateOfBirth" class="form-control" type="date" />
-                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="FullName" class="form-label">Full Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input asp-for="FullName" class="form-control" placeholder="Enter your full name" />
+                                </div>
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                    <input asp-for="DateOfBirth" class="form-control" type="date" />
+                                </div>
+                                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Bio" class="form-label"></label>
-                            <textarea asp-for="Bio" class="form-control" rows="3"></textarea>
+                            <label asp-for="Bio" class="form-label">Bio</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-pen"></i></span>
+                                <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Tell us about yourself"></textarea>
+                            </div>
                             <span asp-validation-for="Bio" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Email" class="form-label"></label>
-                            <input asp-for="Email" class="form-control" type="email" />
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <input asp-for="Email" class="form-control" type="email" placeholder="your.email@example.com" />
+                            </div>
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="PhoneNumber" class="form-label"></label>
-                            <input asp-for="PhoneNumber" class="form-control" />
+                            <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number" />
+                            </div>
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="Address" class="form-label"></label>
-                            <input asp-for="Address" class="form-control" />
+                        <div class="mb-4">
+                            <label asp-for="Address" class="form-label">Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                <input asp-for="Address" class="form-control" placeholder="Enter your address" />
+                            </div>
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
 
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                            <a asp-action="Index" class="btn btn-secondary">Back</a>
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -68,7 +107,22 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Preview image before upload
+        document.getElementById('avatar').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.querySelector('.current-image img').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 }
 
 @section Styles {
@@ -79,40 +133,82 @@
             border-radius: 0.5rem;
             background-color: #1C1D3A;
             color: #ffffff;
+            overflow: hidden;
         }
+
+        .card-header {
+            background-color: #131428;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
         .card-body {
             padding: 2rem;
         }
+
         .form-control {
-            border-radius: 0.5rem;
+            border-radius: 0.25rem;
             padding: 0.75rem;
             background-color: #2A2B4A;
             color: #ffffff;
             border: 1px solid #6C63FF;
+            transition: all 0.3s ease;
         }
-        .form-control:focus {
-            border-color: #00D4FF;
-            box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
+
+            .form-control:focus {
+                border-color: #00D4FF;
+                box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
+            }
+
+        .input-group-text {
+            background-color: #6C63FF;
+            color: white;
+            border: none;
         }
+
         .btn {
-            padding: 0.75rem 2rem;
-            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
         }
+
         .btn-primary {
             background-color: #6C63FF;
             border-color: #6C63FF;
         }
-        .btn-primary:hover {
-            background-color: #00D4FF;
-            border-color: #00D4FF;
-        }
+
+            .btn-primary:hover {
+                background-color: #00D4FF;
+                border-color: #00D4FF;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
         .btn-secondary {
             background-color: #4A4B6B;
             border-color: #4A4B6B;
         }
-        .btn-secondary:hover {
-            background-color: #6C63FF;
+
+            .btn-secondary:hover {
+                background-color: #6C63FF;
+                border-color: #6C63FF;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+        .btn-outline-primary {
+            color: #6C63FF;
             border-color: #6C63FF;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #6C63FF;
+                color: white;
+            }
+
+        .rounded-circle {
+            border: 3px solid #6C63FF;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
         }
     </style>
 } 

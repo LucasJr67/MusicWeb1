@@ -1,0 +1,98 @@
+﻿@model MusicWeb1.Models.PlaylistSong
+
+@{
+    ViewData["Title"] = "Add Songs to Playlist";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Add Songs to Playlist</h3>
+                    <span class="badge bg-light text-primary">@ViewBag.PlaylistName</span>
+                </div>
+                <div class="card-body">
+                    <!-- Search Bar -->
+                    <div class="mb-4">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search for songs...">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Song List -->
+                    <div class="list-group">
+                        @foreach (var song in ViewBag.AvailableSongs)
+                        {
+                            <div class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/images/default-song.jpg" class="rounded me-3" 
+                                             style="width: 48px; height: 48px; object-fit: cover;">
+                                        <div>
+                                            <h6 class="mb-0">@song.Title</h6>
+                                            <small class="text-muted">@song.Artist</small>
+                                        </div>
+                                    </div>
+                                    <form asp-action="AddSong" method="post">
+                                        <input type="hidden" name="playlistId" value="@ViewBag.PlaylistId" />
+                                        <input type="hidden" name="songId" value="@song.SongId" />
+                                        <button type="submit" class="btn btn-outline-success btn-sm">
+                                            <i class="fas fa-plus"></i> Add
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Details" asp-route-id="@ViewBag.PlaylistId" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Playlist
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Live search functionality
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".list-group-item").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .card-header {
+            border-top-left-radius: 15px !important;
+            border-top-right-radius: 15px !important;
+        }
+        .list-group-item {
+            transition: background-color 0.2s;
+        }
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+        }
+        .badge {
+            font-size: 1rem;
+        }
+    </style>
+}

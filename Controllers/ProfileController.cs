@@ -31,10 +31,10 @@ namespace MusicWeb1.Controllers
                 },
                 Playlists = new List<Playlist>
                 {
-                    new Playlist { Name = "Nhạc yêu thích", SongCount = 15, CoverImage = "https://via.placeholder.com/50" },
-                    new Playlist { Name = "Nhạc trữ tình", SongCount = 8, CoverImage = "https://via.placeholder.com/50" },
-                    new Playlist { Name = "Nhạc EDM", SongCount = 12, CoverImage = "https://via.placeholder.com/50" },
-                    new Playlist { Name = "Nhạc Acoustic", SongCount = 10, CoverImage = "https://via.placeholder.com/50" }
+                    new Playlist { PlaylistId = 1, Name = "Nhạc yêu thích", Description = "15 bài hát", CoverImage = "https://via.placeholder.com/50" },
+                    new Playlist { PlaylistId = 2, Name = "Nhạc trữ tình", Description = "8 bài hát", CoverImage = "https://via.placeholder.com/50" },
+                    new Playlist { PlaylistId = 3, Name = "Nhạc EDM", Description = "12 bài hát", CoverImage = "https://via.placeholder.com/50" },
+                    new Playlist { PlaylistId = 4, Name = "Nhạc Acoustic", Description = "10 bài hát", CoverImage = "https://via.placeholder.com/50" }
                 }
             };
 
@@ -47,8 +47,18 @@ namespace MusicWeb1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Profile profile)
+        public IActionResult Edit(Profile profile, IFormFile avatar)
         {
+            if (avatar != null && avatar.Length > 0)
+            {
+                // Lưu file và cập nhật đường dẫn
+                var filePath = Path.Combine("wwwroot/uploads", avatar.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    avatar.CopyTo(stream);
+                }
+                profile.AvatarUrl = "/uploads/" + avatar.FileName;
+            }
             if (ModelState.IsValid)
             {
                 // TODO: Cập nhật thông tin profile vào database
@@ -78,12 +88,5 @@ namespace MusicWeb1.Controllers
         public string Title { get; set; }
         public string Description { get; set; }
         public string TimeAgo { get; set; }
-    }
-
-    public class Playlist
-    {
-        public string Name { get; set; }
-        public int SongCount { get; set; }
-        public string CoverImage { get; set; }
     }
 } 

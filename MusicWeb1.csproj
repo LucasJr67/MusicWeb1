@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Profilepage\" />
-    <Folder Include="Views\Playlist\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

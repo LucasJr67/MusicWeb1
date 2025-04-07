@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MusicWeb1.Models;
 
@@ -28,4 +29,6 @@ public partial class Playlist
     public virtual ICollection<RatingPlaylist> RatingPlaylists { get; set; } = new List<RatingPlaylist>();
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
+
+    public int SongCount => PlaylistSongs?.Count ?? 0;
 }

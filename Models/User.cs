@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicWeb1.Models;
 
@@ -7,15 +8,19 @@ public partial class User
 {
     public int UserId { get; set; }
 
-    public string Username { get; set; } = null!;
+    [Required]
+    public required string Username { get; set; }
 
-    public string Email { get; set; } = null!;
+    [Required]
+    [EmailAddress]
+    public required string Email { get; set; }
 
-    public string PasswordHash { get; set; } = null!;
+    [Required]
+    public required string PasswordHash { get; set; }
 
     public string? GoogleId { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
@@ -28,6 +33,8 @@ public partial class User
     public string? RefreshToken { get; set; }
 
     public bool? IsActive { get; set; }
+
+    public DateTime? LastLoginAt { get; set; }
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
